@@ -1,0 +1,138 @@
+Tests de base
+ls
+
+echo Hello world
+
+pwd
+
+cd .. && pwd
+
+cd /tmp ; ls
+
+🔹 Espaces et syntaxe étrange
+ls -l
+
+ls | wc -l
+
+echo
+
+(juste des espaces)
+
+ls|||grep a (pipes consécutifs invalides)
+
+ls && (opérateur logique sans commande suivante)
+
+🔹 Quotes (simples et doubles)
+echo "hello world"
+
+echo 'hello world'
+
+echo "un 'nested' test"
+
+echo 'un "nested" test'
+
+echo "test non fermé
+
+echo 'autre test non fermé
+
+🔹 Redirections
+echo hello > outfile
+
+cat < infile
+
+ls >
+
+> outfile
+
+cat << EOF (here_doc, à tester si tu l'implémentes)
+
+echo hello > outfile > outfile2
+
+echo hello > /root/test (permission denied)
+
+cat < fichier_qui_n_existe_pas
+
+🔹 Pipes
+ls | wc
+
+ls | grep "toto" | wc -l
+
+| ls
+
+ls |
+
+ls || wc
+
+cat file | | grep test
+
+🔹 Built-ins
+cd /tmp
+
+cd (sans argument)
+
+cd fichier (pas un dossier)
+
+exit
+
+exit 42
+
+exit 99999999999999999999999999999999 (overflow)
+
+export VAR=value
+
+export VAR="valeur avec des espaces"
+
+unset VAR
+
+env
+
+export VAR
+
+export VAR+=add (extension POSIX que tu peux rejeter si non supportée)
+
+🔹 Variables d’environnement
+export VAR=hello
+
+echo $VAR
+
+echo "$VAR"
+
+echo '$VAR' (doit afficher littéralement $VAR)
+
+echo $INEXISTANTE
+
+VAR=42 ls (variable temporaire)
+
+🔹 Substitutions et expansions (si supporté)
+echo `ls`
+
+echo $(ls)
+
+echo $((1 + 2))
+
+(Si non supporté, ton shell doit les ignorer proprement ou afficher une erreur.)
+
+🔹 *Ctrl+D, Ctrl+C, Ctrl+*
+Ctrl+C au milieu d’une commande
+
+Ctrl+D sur ligne vide (doit quitter)
+
+Ctrl+\ (SIGQUIT, voir si tu ignores correctement)
+
+🔹 Cas exotiques et erreurs
+./a.out (exécutable dans le dossier courant)
+
+./non_existant
+
+ls > /dev/full (simulateur d’erreur "No space left on device")
+
+ls > /proc/1/mem (permission denied)
+
+🔹 Commandes enchaînées
+echo test ; ls ; pwd
+
+false && echo ok (ne doit pas afficher "ok")
+
+true || echo fail (ne doit pas afficher "fail")
+
+(cd /tmp && ls) (subshell, à ignorer si non géré)
